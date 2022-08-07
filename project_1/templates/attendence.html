@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div class="container d-flex justify-content-center" style="margin-top: 100px;"> 
+        <div class="row">
+            <div class="col-md-4 d-flex justify-content-center">
+                <button class="btn btn-primary" onclick="video_on()">On</button>
+            </div>
+            <div class="col-md-4 d-flex justify-content-center"> 
+                <form method="POST" action="attendence">
+                    {% csrf_token %}
+                    <button class="btn btn-primary" type="submit" id="terminate">Home</button>
+                </form>
+            </div>
+            <div class="col-md-4 d-flex justify-content-center">
+                <button class="btn btn-primary" onclick="video_off()">Off</button>
+            </div>
+            
+        </div>
+    </div>
+    <div class="container d-flex justify-content-center" style="width: 400px;height: 400px;">
+        <p id="wait" ></p>
+        <img id="demo" src = "">
+        <h1 id="real"></h1>
+    </div>
+    
+    <div class="container d-flex justify-content-center">
+        <form action="name_stream" method="POST">
+            {% csrf_token %}
+            <button class="btn btn-primary" id="download" type="submit">get</button>
+        </form>
+    </div>
+    <!-- <button onclick="video_on()">on</button>
+    <button onclick="video_off()">off</button>
+    <form method="POST" action="attendence">
+        {% csrf_token %}
+        <button type="submit" id="terminate">Home</button>
+    </form>
+
+    <p id="wait" ></p>
+    <img id="demo" src = "" >
+    <h1 id="real"></h1>
+    <form action="name_stream" method="POST">
+        {% csrf_token %}
+        <button id="download" type="submit">get</button>
+    </form> -->
+    
+    <script>
+        function video_on() {
+        document.getElementById("demo").src = "{% url 'attendence_stream' %}";
+        document.getElementById("wait").innerHTML = "";
+<!--        setTimeout(showText, 3000);-->
+
+        }
+        function showText(){
+            document.getElementById("wait").innerHTML = "Done";
+        }
+
+        function video_off() {
+           document.getElementById("demo").src = "";
+           document.getElementById("wait").innerHTML = "Turned off";
+        }
+        
+    </script>
+{% endblock %}
